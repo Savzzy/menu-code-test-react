@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "target": "es5",
+    "sourceMap": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "noImplicitAny": false,
+    "noResolve": false,
+    "removeComments": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  "exclude": ["./node_modules/**/*"]
+}

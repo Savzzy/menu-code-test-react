@@ -1,15 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
-import { store } from "./store";
 import { Provider } from "react-redux";
-
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+import Error from "./components/Error/Error";
 import Header from "./components/Header";
-import Tabs from "./components/Tabs";
-
-import styled from "styled-components";
 import Menu from "./components/Menu";
 import Order from "./components/Order/Order";
+import { store } from "./store";
 
 export const theme = {
   colors: {
@@ -48,6 +45,7 @@ const App = () => {
           <Menu />
           <Order />
         </ContentContainer>
+        <Error />
       </AppContainer>
     </ThemeProvider>
   );

@@ -17,6 +17,7 @@ export interface Order {
 export interface Store {
   order: Order;
   activeDiner: string;
+  error: string;
 }
 
 //#region action payload types
@@ -36,10 +37,15 @@ export interface ChangeActiveDiner {
   activeDiner: Diners;
 }
 
-export type ActionTypes =
-  | AddDishToOrderActionType
-  | RemoveDishFromOrderActionType
-  | ChangeActiveDinerActionType;
+export interface UpdateErrorState {
+  error: string;
+}
+
+export type PayloadTypes =
+  | ItemToAdd
+  | ItemToRemove
+  | ChangeActiveDiner
+  | UpdateErrorState;
 
 //#endregion
 
@@ -61,6 +67,14 @@ export interface ChangeActiveDinerActionType extends ActionType {
   payload: ChangeActiveDiner;
 }
 
-export type PayloadTypes = ItemToAdd | ItemToRemove | ChangeActiveDiner;
+export interface UpdateErrorStateActionType extends ActionType {
+  payload: UpdateErrorState;
+}
+
+export type ActionTypes =
+  | AddDishToOrderActionType
+  | RemoveDishFromOrderActionType
+  | ChangeActiveDinerActionType
+  | UpdateErrorStateActionType;
 
 //#endregion

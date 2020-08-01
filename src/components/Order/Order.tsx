@@ -17,6 +17,19 @@ const OrderedItems = styled.div`
   flex-direction: column;
 `;
 
+const OrderButton = styled.div`
+  background-color: ${(props) => props.theme.colors.primary};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${(props) => props.theme.colors.lightText};
+  font-size: 20px;
+  font-weight: 400;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 20px 10px;
+`;
+
 const OrderDetailsContainer = styled.div``;
 
 const Order: React.FC = () => {
@@ -27,6 +40,19 @@ const Order: React.FC = () => {
       activeDiner: store.activeDiner,
       orderedItems: store.order[store.activeDiner] || [],
     };
+  });
+
+  const itemOrdered = useSelector((store: Store) => {
+    let anItemHasBeenAdded = false;
+
+    Object.keys(store.order).some((key: string) => {
+      if (store.order[key].length > 0) {
+        anItemHasBeenAdded = true;
+        return true;
+      }
+    });
+
+    return anItemHasBeenAdded;
   });
 
   const getDiner = (activeDiner: string) => {
@@ -40,6 +66,8 @@ const Order: React.FC = () => {
   const onTabClick = (tabOption: string) => {
     dispatch(changeActiveDiner(getDiner(tabOption)));
   };
+
+  const placeOrder = () => {};
 
   return (
     <OrderContainer>
@@ -65,6 +93,9 @@ const Order: React.FC = () => {
           })}
         </OrderedItems>
         <Total />
+        {itemOrdered && (
+          <OrderButton onClick={placeOrder}>Place Order</OrderButton>
+        )}
       </OrderDetailsContainer>
     </OrderContainer>
   );

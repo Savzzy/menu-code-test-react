@@ -27,11 +27,20 @@ export const removeItemFromOrder = (menuItemId: number): ActionTypes => {
   };
 };
 
-export const changeActiveDiner = (activeDiner: Diners) => {
+export const changeActiveDiner = (activeDiner: Diners): ActionTypes => {
   return {
     type: ACTION_TYPES.CHANGE_ACTIVE_DINER,
     payload: {
       activeDiner,
+    },
+  };
+};
+
+export const updateErrorState = (error: string): ActionTypes => {
+  return {
+    type: ACTION_TYPES.UPDATE_ERROR,
+    payload: {
+      error,
     },
   };
 };

@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from "../constants";
+import { ACTION_TYPES, UI_ERRORS } from "../constants";
 import {
   ActionTypes,
   ChangeActiveDiner,
@@ -8,7 +8,9 @@ import {
   OrderedItemType,
   PayloadTypes,
   Store,
+  UpdateErrorState,
 } from "../types";
+import { canItemBeAdded } from "../util";
 
 const addItemToOrder = (store: Store, payload: PayloadTypes) => {
   const activeDiner = store.activeDiner;
@@ -24,6 +26,17 @@ const addItemToOrder = (store: Store, payload: PayloadTypes) => {
       menuItemPrice,
       menuCategory,
     } = payload as ItemToAdd;
+
+    const { canBeAdded, error } = canItemBeAdded(
+      menuItemId,
+      menuItemName,
+      store,
+    );
+
+    if (!canBeAdded) {
+      store.error = error;
+      return store;
+    }
 
     store.order[activeDiner].push({
       menuItemId,
@@ -51,6 +64,7 @@ const removeItemFromOrder = (store: Store, payload: PayloadTypes) => {
 const initialState: Store = {
   order: {},
   activeDiner: Diners.diner1,
+  error: null,
 };
 
 const rootReducer = (store = initialState, action: ActionTypes) => {
@@ -62,8 +76,14 @@ const rootReducer = (store = initialState, action: ActionTypes) => {
       return removeItemFromOrder(Object.assign({}, store), action.payload);
     }
     case ACTION_TYPES.CHANGE_ACTIVE_DINER: {
-      store.activeDiner = (action.payload as ChangeActiveDiner).activeDiner;
-      return store;
+      const updatedStore = Object.assign({}, store);
+      updatedStore.activeDiner = (action.payload as ChangeActiveDiner).activeDiner;
+      return updatedStore;
+    }
+    case ACTION_TYPES.UPDATE_ERROR: {
+      const updatedStore = Object.assign({}, store);
+      updatedStore.error = (action.payload as UpdateErrorState).error;
+      return updatedStore;
     }
     default: {
       return store;

@@ -7,12 +7,12 @@ const MenuItemContainer = styled.div`
   border-width: 1px;
   border-color: ${(props) => props.theme.colors.itemCardBorder};
   border-style: solid;
-  max-width: 275px;
   display: flex;
   height: 90px;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.1);
-  margin: 20px;
   border-radius: 5px;
+  margin: 5px 0;
+  cursor: pointer;
 `;
 
 const ImageContainer = styled.div`
@@ -52,6 +52,12 @@ interface MenuItemProps {
   itemName: string;
   itemPrice: number;
   priceUnit: string;
+  onClick: (
+    menuItemId: number,
+    menuItemName: string,
+    menuItemPrice: number,
+  ) => void;
+  addedToOrder?: boolean;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
@@ -59,6 +65,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   itemName,
   itemPrice,
   priceUnit,
+  onClick,
 }) => {
   const [menuItemImage, setMenuItemImage] = useState(null);
 
@@ -68,8 +75,6 @@ const MenuItem: React.FC<MenuItemProps> = ({
         const response = await unsplash.get("search/photos", {
           params: { query: "cats" },
         });
-
-        // debugger;
       } catch (error) {
         console.log("unsplash API error");
       }
@@ -79,7 +84,11 @@ const MenuItem: React.FC<MenuItemProps> = ({
   });
 
   return (
-    <MenuItemContainer>
+    <MenuItemContainer
+      onClick={() => {
+        onClick(itemId, itemName, itemPrice);
+      }}
+    >
       <ImageContainer />
       <ItemDetailsContainer>
         <ItemName>{itemName}</ItemName>

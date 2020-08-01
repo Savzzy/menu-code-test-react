@@ -1,37 +1,22 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import menu from "../../../menu-data.json";
 import Tabs from "../Tabs/Tabs";
-import MenuItem from "./components/MenuItem";
-
-interface MenuItemType {
-  id: number;
-  name: string;
-  price: number;
-}
-
-interface MenuCategoryType {
-  [key: string]: Array<MenuItemType>;
-}
+import MenuCategory from "./components/MenuCategory";
 
 const MenuContainer = styled.div`
   width: 100%;
-  padding-left: 50px;
+  padding-right: 15px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: ${(props) => props.theme.colors.seperator};
 `;
 
 const MenuCategories = styled.div``;
 
-const MenuCategory = styled.div``;
-
-const CategoryName = styled.h2`
-  color: ${(props) => props.theme.colors.primaryText};
-  font-size: 20px;
-  margin: 25px 0 20px 20px;
-  text-transform: capitalize;
-  font-weight: 400;
-`;
-
 const Menu: React.FC = () => {
+  const categoryOffsets = useRef({});
+
   const getMenuCategories = (): Array<string> => {
     return Object.keys(menu);
   };
@@ -42,6 +27,13 @@ const Menu: React.FC = () => {
 
   const onTabClick = (tabOption: string) => {
     setSelectedTab(tabOption);
+
+    window.scrollTo(0, categoryOffsets.current[tabOption] - 10);
+  };
+
+  const registerOffset = (menuCategory: string, offsetY: number) => {
+    categoryOffsets.current[menuCategory] = offsetY;
+    console.log(categoryOffsets);
   };
 
   return (
@@ -54,21 +46,12 @@ const Menu: React.FC = () => {
       <MenuCategories>
         {Object.keys(menu).map((menuCategory: string) => {
           return (
-            <MenuCategory>
-              <CategoryName>{menuCategory}</CategoryName>
-              {Object.values(menu[menuCategory]).map(
-                (menuItem: MenuItemType) => {
-                  return (
-                    <MenuItem
-                      itemId={menuItem.id}
-                      itemName={menuItem.name}
-                      itemPrice={menuItem.price}
-                      priceUnit="£"
-                    />
-                  );
-                },
-              )}
-            </MenuCategory>
+            <MenuCategory
+              key={menuCategory}
+              menuCategory={menuCategory}
+              menuItems={menu[menuCategory]}
+              registerOffset={registerOffset}
+            />
           );
         })}
       </MenuCategories>

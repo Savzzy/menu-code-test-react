@@ -11,7 +11,11 @@ export interface OrderedItemType {
 }
 
 export interface Order {
-  [key: string]: Array<OrderedItemType>;
+  [key: string]: {
+    twoItemsAdded: boolean;
+    mainsAdded: boolean;
+    orderedItems: Array<OrderedItemType>;
+  };
 }
 
 export interface Store {

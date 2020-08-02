@@ -1,11 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { changeActiveDiner } from "../../actions";
+import { changeActiveDiner, updateErrorState } from "../../actions";
 import { Diners, Store } from "../../types";
 import Tabs, { TabPositions } from "../Tabs";
 import OrderedItem from "./components/OrderedItem";
 import Total from "./components/Total";
+import { checkForErrors } from "../../util";
 
 const OrderContainer = styled.div`
   padding: 0 15px;
@@ -35,25 +36,24 @@ const OrderDetailsContainer = styled.div``;
 const Order: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { activeDiner, orderedItems } = useSelector((store: Store) => {
-    return {
-      activeDiner: store.activeDiner,
-      orderedItems: store.order[store.activeDiner] || [],
-    };
-  });
+  const { activeDiner, orderedItems, store, itemOrdered } = useSelector(
+    (store: Store) => {
+      let itemOrdered = false;
+      Object.keys(store.order).some((key: string) => {
+        if (store.order[key].orderedItems.length > 0) {
+          itemOrdered = true;
+          return true;
+        }
+      });
 
-  const itemOrdered = useSelector((store: Store) => {
-    let anItemHasBeenAdded = false;
-
-    Object.keys(store.order).some((key: string) => {
-      if (store.order[key].length > 0) {
-        anItemHasBeenAdded = true;
-        return true;
-      }
-    });
-
-    return anItemHasBeenAdded;
-  });
+      return {
+        activeDiner: store.activeDiner,
+        orderedItems: store.order[store.activeDiner]?.orderedItems || [],
+        itemOrdered,
+        store,
+      };
+    },
+  );
 
   const getDiner = (activeDiner: string) => {
     const dinerKey: string = Object.keys(Diners).find((key: string) => {
@@ -67,7 +67,13 @@ const Order: React.FC = () => {
     dispatch(changeActiveDiner(getDiner(tabOption)));
   };
 
-  const placeOrder = () => {};
+  const placeOrder = () => {
+    const error = checkForErrors(store);
+
+    if (error) {
+      dispatch(updateErrorState(error));
+    }
+  };
 
   return (
     <OrderContainer>

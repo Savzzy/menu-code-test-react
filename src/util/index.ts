@@ -1,5 +1,6 @@
-import { Store, OrderedItemType, Order } from "../types";
 import { UI_ERRORS } from "../constants";
+import { Order, OrderedItemType, Store } from "../types";
+import { isObjectLiteralExpression } from "typescript";
 import OrderedItem from "../components/Order/components/OrderedItem";
 
 export const isDuplicateItem = (menuItemId: number, store: Store): boolean => {
@@ -7,7 +8,7 @@ export const isDuplicateItem = (menuItemId: number, store: Store): boolean => {
 
   const activeDiner = store.activeDiner;
 
-  store.order[activeDiner].some((orderedItem: OrderedItemType) => {
+  store.order[activeDiner].orderedItems.some((orderedItem: OrderedItemType) => {
     if (orderedItem.menuItemId === menuItemId) {
       isDuplicate = true;
       return true;
@@ -17,23 +18,80 @@ export const isDuplicateItem = (menuItemId: number, store: Store): boolean => {
   return isDuplicate;
 };
 
-export const orderHasMains = (order: Order) => {
-  let orderHasMains = false;
+export const checkForErrors = (store: Store): string => {
+  let errorMessage: string = null;
 
-  Object.keys((diner: string) => {
-    order[diner].some((orderedItem: OrderedItemType) => {
-      if (orderedItem.menuCategory === "mains") {
-        orderHasMains = true;
+  if (Object.keys(store.order).length < 2) {
+    errorMessage = UI_ERRORS.SHOULD_ORDER_FOR_TWO;
+
+    return errorMessage;
+  }
+
+  Object.keys(store.order).some((diner: string) => {
+    const order = store.order[diner];
+
+    if (!order.mainsAdded) {
+      errorMessage = UI_ERRORS.SHOULD_HAVE_MAINS.replace("<diner>", diner);
+      return true;
+    }
+
+    if (!order.twoItemsAdded) {
+      errorMessage = UI_ERRORS.SHOULD_HAVE_TWO_ITEMS.replace("<diner>", diner);
+      return true;
+    }
+  });
+
+  return errorMessage;
+};
+
+export const isCheeseCakePresent = (
+  menuItemName: string,
+  store: Store,
+): boolean => {
+  let cheeseCakeFound = false;
+
+  if (menuItemName === "Cheesecake") {
+    Object.keys(store.order).some((diner: string) => {
+      const order = store.order[diner];
+
+      cheeseCakeFound = order.orderedItems.some(
+        (OrderedItem: OrderedItemType) =>
+          OrderedItem.menuItemName === "Cheesecake",
+      );
+
+      if (cheeseCakeFound) {
         return true;
       }
     });
-  });
+  }
 
-  return orderHasMains;
+  return cheeseCakeFound;
 };
 
-export const isValidOrder = (store: Store) => {
-  let isValidOrder = true;
+export const waiterCriteriaCheck = (menuItemName: string, store: Store) => {
+  let isWaiterUnhappy = false;
+  if (menuItemName === "Prawn cocktail") {
+    isWaiterUnhappy = store.order[store.activeDiner].orderedItems.some(
+      (orderedItem: OrderedItemType) => {
+        return orderedItem.menuItemName === "Salmon fillet";
+      },
+    );
+
+    if (isWaiterUnhappy) {
+      return true;
+    }
+  }
+  if (menuItemName === "Salmon fillet") {
+    isWaiterUnhappy = store.order[store.activeDiner].orderedItems.some(
+      (orderedItem: OrderedItemType) => {
+        return orderedItem.menuItemName === "Prawn cocktail";
+      },
+    );
+    if (isWaiterUnhappy) {
+      return true;
+    }
+  }
+  return isWaiterUnhappy;
 };
 
 export const canItemBeAdded = (
@@ -45,6 +103,20 @@ export const canItemBeAdded = (
     return {
       canBeAdded: false,
       error: UI_ERRORS.DUPLICATE_ORDER_ITEM,
+    };
+  }
+
+  if (isCheeseCakePresent(menuItemName, store)) {
+    return {
+      canBeAdded: false,
+      error: UI_ERRORS.NO_MORE_CHEESECAKE,
+    };
+  }
+
+  if (waiterCriteriaCheck(menuItemName, store)) {
+    return {
+      canBeAdded: false,
+      error: UI_ERRORS.WAITER_RESTRICTION,
     };
   }
 

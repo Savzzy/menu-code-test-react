@@ -67,7 +67,7 @@ const Total: React.FC = () => {
     Object.keys(order).forEach((key: string) => {
       dinerTotals[key] = 0;
 
-      order[key].forEach((item: OrderedItemType) => {
+      order[key].orderedItems.forEach((item: OrderedItemType) => {
         dinerTotals[key] += item.menuItemPrice;
       });
 

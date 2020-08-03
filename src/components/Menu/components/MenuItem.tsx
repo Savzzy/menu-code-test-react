@@ -141,7 +141,6 @@ const MenuItem: React.FC<MenuItemProps> = ({
       onClick={() => {
         onClick && onClick(menuItem);
       }}
-      data-testid="menu_item"
     >
       {getMenuItemImage()}
       <ItemDetailsContainer>

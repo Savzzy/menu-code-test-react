@@ -63,6 +63,37 @@ export const mockOrder: Order = {
   },
 };
 
+export const mockWrongOrder: Order = {
+  "diner 1": {
+    mainsAdded: true,
+    twoItemsAdded: true,
+    orderedItems: [
+      {
+        ...salmonFillet,
+        category: salmonFillet.category,
+      },
+      {
+        ...cheescake,
+        category: cheescake.category,
+      },
+    ],
+  },
+  "diner 2": {
+    mainsAdded: true,
+    twoItemsAdded: true,
+    orderedItems: [
+      {
+        ...salmonFillet,
+        category: salmonFillet.category,
+      },
+      {
+        ...prawnCoctail,
+        category: prawnCoctail.category,
+      },
+    ],
+  },
+};
+
 const zeroOrderStore: Order = {
   "diner 1": {
     mainsAdded: true,
@@ -84,4 +115,9 @@ export const mockStoreForNoOrders: Store = {
 export const mockStore: Store = {
   order: mockOrder,
   activeDiner: Diners.diner1,
+};
+
+export const mockStoreWithWrongOrder: Store = {
+  order: mockWrongOrder,
+  activeDiner: Diners.diner2,
 };

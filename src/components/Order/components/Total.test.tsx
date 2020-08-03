@@ -6,7 +6,7 @@ import {
   mockStore,
   BillAmount,
   mockStoreForNoOrders,
-} from "../__meta__/Total.fixtures";
+} from "../__meta__/Order.fixtures";
 
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),

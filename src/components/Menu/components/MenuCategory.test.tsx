@@ -51,7 +51,6 @@ describe("MenuCategory", () => {
     );
 
     await waitFor(() => {
-      expect(getAllByTestId("menu_item").length).toBe(mockMenuItems.length);
       mockMenuItems.forEach((menuItem: MenuItemType) => {
         expect(getByText(menuItem.name)).toBeInTheDocument();
         expect(getByText(`£ ${menuItem.price.toFixed(2)}`)).toBeInTheDocument();

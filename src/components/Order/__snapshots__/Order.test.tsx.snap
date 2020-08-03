@@ -28,7 +28,6 @@ exports[`Order renders correctly 1`] = `
     >
       <div
         class="sc-AxirZ eQsxdA"
-        data-testid="menu_item"
       >
         <div
           class="sc-AxiKw gtDHmr"
@@ -71,7 +70,6 @@ exports[`Order renders correctly 1`] = `
       </div>
       <div
         class="sc-AxirZ eQsxdA"
-        data-testid="menu_item"
       >
         <div
           class="sc-AxiKw gtDHmr"
@@ -161,6 +159,7 @@ exports[`Order renders correctly 1`] = `
     </div>
     <div
       class="sc-fzqNJr cANzjX"
+      data-testid="place-order"
     >
       Place Order
     </div>

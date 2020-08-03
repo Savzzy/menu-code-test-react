@@ -24,11 +24,11 @@ describe("MenuItem", () => {
   it("test on menuItem Click", () => {
     const myMock = jest.fn();
 
-    const { getByTestId } = mockedAppRoot(
+    const { getByText } = mockedAppRoot(
       <MenuItem menuItem={mockMenuItems[0]} priceUnit="£" onClick={myMock} />,
     );
 
-    fireEvent.click(getByTestId("menu_item"));
+    fireEvent.click(getByText(mockMenuItems[0].name));
 
     expect(myMock.mock.calls.length).toBe(1);
     expect(myMock.mock.calls[0][0]).toBe(mockMenuItems[0]);

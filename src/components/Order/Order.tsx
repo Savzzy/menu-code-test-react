@@ -104,6 +104,7 @@ const Order: React.FC = () => {
 
             return (
               <MenuItem
+                key={menuItem.id}
                 menuItem={menuItem}
                 priceUnit={"£"}
                 itemCategory={item.category}
@@ -115,7 +116,9 @@ const Order: React.FC = () => {
         </OrderedItems>
         <Total />
         {itemOrdered && (
-          <OrderButton onClick={placeOrder}>Place Order</OrderButton>
+          <OrderButton onClick={placeOrder} data-testid="place-order">
+            Place Order
+          </OrderButton>
         )}
       </OrderDetailsContainer>
     </OrderContainer>

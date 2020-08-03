@@ -1,13 +1,15 @@
+import { MenuItemType } from "./components/Menu/components/MenuCategory";
+
 export enum Diners {
   diner1 = "diner 1",
   diner2 = "diner 2",
 }
 
 export interface OrderedItemType {
-  menuItemId: number;
-  menuItemName: string;
-  menuItemPrice: number;
-  menuCategory: string;
+  id: number;
+  name: string;
+  price: number;
+  category: string;
 }
 
 export interface Order {
@@ -21,20 +23,26 @@ export interface Order {
 export interface Store {
   order: Order;
   activeDiner: string;
-  error: string;
+  error?: string;
+}
+
+export interface UnsplashResponse {
+  results: Array<{
+    urls: {
+      thumb: string;
+    };
+  }>;
 }
 
 //#region action payload types
 
 export interface ItemToAdd {
-  menuItemId: number;
-  menuItemName: string;
-  menuItemPrice: number;
+  menuItem: MenuItemType;
   menuCategory: string;
 }
 
 export interface ItemToRemove {
-  menuItemId: number;
+  id: number;
 }
 
 export interface ChangeActiveDiner {

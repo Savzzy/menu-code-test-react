@@ -1,12 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { changeActiveDiner, updateErrorState } from "../../actions";
-import { Diners, Store } from "../../types";
+import {
+  changeActiveDiner,
+  updateErrorState,
+  removeItemFromOrder,
+} from "../../actions";
+import { Diners, OrderedItemType, Store } from "../../types";
+import { checkForErrors } from "../../util/ruleSets";
+import { MenuItemType } from "../Menu/components/MenuCategory";
+import MenuItem from "../Menu/components/MenuItem";
 import Tabs, { TabPositions } from "../Tabs";
-import OrderedItem from "./components/OrderedItem";
 import Total from "./components/Total";
-import { checkForErrors } from "../../util";
 
 const OrderContainer = styled.div`
   padding: 0 15px;
@@ -29,12 +34,17 @@ const OrderButton = styled.div`
   padding: 10px;
   border-radius: 5px;
   margin: 20px 10px;
+  cursor: pointer;
 `;
 
 const OrderDetailsContainer = styled.div``;
 
 const Order: React.FC = () => {
   const dispatch = useDispatch();
+
+  const onDeleteIconClick = (menuItemID: number) => {
+    dispatch(removeItemFromOrder(menuItemID));
+  };
 
   const { activeDiner, orderedItems, store, itemOrdered } = useSelector(
     (store: Store) => {
@@ -85,15 +95,20 @@ const Order: React.FC = () => {
       />
       <OrderDetailsContainer>
         <OrderedItems>
-          {orderedItems.map((orderedItem) => {
+          {orderedItems.map((item: OrderedItemType) => {
+            const menuItem: MenuItemType = {
+              id: item.id,
+              name: item.name,
+              price: item.price,
+            };
+
             return (
-              <OrderedItem
-                key={orderedItem.menuItemId}
-                itemId={orderedItem.menuItemId}
-                itemName={orderedItem.menuItemName}
-                itemCategory={orderedItem.menuCategory}
-                itemPrice={orderedItem.menuItemPrice}
+              <MenuItem
+                menuItem={menuItem}
                 priceUnit={"£"}
+                itemCategory={item.category}
+                ordered={true}
+                onDeleteIconClick={onDeleteIconClick}
               />
             );
           })}

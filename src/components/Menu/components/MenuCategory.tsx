@@ -25,7 +25,7 @@ export interface MenuItemType {
 interface MenuCategoryProps {
   menuCategory: string;
   menuItems: Array<MenuItemType>;
-  registerOffset: (menuCategory: string, offsetY: number) => void;
+  registerOffset?: (menuCategory: string, offsetY: number) => void;
 }
 
 const MenuCategory: React.FC<MenuCategoryProps> = ({
@@ -36,7 +36,7 @@ const MenuCategory: React.FC<MenuCategoryProps> = ({
   const categoryName = useRef(null);
 
   useEffect(() => {
-    if (categoryName?.current) {
+    if (categoryName?.current && registerOffset) {
       registerOffset(
         menuCategory,
         categoryName.current.getBoundingClientRect().y,
@@ -56,23 +56,10 @@ const MenuCategory: React.FC<MenuCategoryProps> = ({
               <Col xs={12} sm={6} md={4} key={menuItem.id}>
                 <MenuItem
                   key={menuItem.id}
-                  itemId={menuItem.id}
-                  itemName={menuItem.name}
-                  itemPrice={menuItem.price}
+                  menuItem={menuItem}
                   priceUnit="£"
-                  onClick={(
-                    menuItemId: number,
-                    menuItemName: string,
-                    menuItemPrice: number,
-                  ) => {
-                    dispatch(
-                      addItemToOrder(
-                        menuItemId,
-                        menuItemName,
-                        menuItemPrice,
-                        menuCategory,
-                      ),
-                    );
+                  onClick={(menuItem: MenuItemType) => {
+                    dispatch(addItemToOrder(menuItem, menuCategory));
                   }}
                 />
               </Col>

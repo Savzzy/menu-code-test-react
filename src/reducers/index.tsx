@@ -1,21 +1,9 @@
 import { ACTION_TYPES } from "../constants";
-import {
-  ActionTypes,
-  ChangeActiveDiner,
-  Diners,
-  Store,
-  UpdateErrorState,
-} from "../types";
+import { ActionTypes, ChangeActiveDiner, UpdateErrorState } from "../types";
 import addItemToOrder from "./addItemToOrder";
 import removeItemFromOrder from "./removeItemFromOrder";
 
-const initialState: Store = {
-  order: {},
-  activeDiner: Diners.diner1,
-  error: null,
-};
-
-const rootReducer = (store = initialState, action: ActionTypes) => {
+const rootReducer = (store, action: ActionTypes) => {
   switch (action.type) {
     case ACTION_TYPES.ADD_DISH: {
       return addItemToOrder(Object.assign({}, store), action.payload);

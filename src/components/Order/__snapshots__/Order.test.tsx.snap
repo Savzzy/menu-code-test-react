@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Order renders correctly 1`] = `
+<div
+  class="sc-fzokOt dQHuyV"
+>
+  <div
+    class="sc-AxmLO vEgDR"
+  >
+    <div
+      class="sc-fzozJi gRNWJd"
+      data-testid="diner 1"
+    >
+      diner 1
+    </div>
+    <div
+      class="sc-fzozJi gexJoT"
+      data-testid="diner 2"
+    >
+      diner 2
+    </div>
+  </div>
+  <div
+    class="sc-fzoyAV lgNqAT"
+  >
+    <div
+      class="sc-fzqBZW hqbVZy"
+    >
+      <div
+        class="sc-AxirZ eQsxdA"
+        data-testid="menu_item"
+      >
+        <div
+          class="sc-AxiKw gtDHmr"
+        />
+        <div
+          class="sc-AxhCb kqBmUn"
+        >
+          <h2
+            class="sc-AxhUy jDDQbp"
+          >
+            Salmon fillet
+          </h2>
+          <h3
+            class="sc-AxgMl dKATfS"
+          >
+            £ 14.00
+          </h3>
+        </div>
+        <div
+          class="sc-Axmtr hNYXJo"
+        >
+          mains
+        </div>
+        <div
+          class="sc-AxheI bPxdoV"
+          data-testid="icon-container"
+        >
+          <svg
+            data-testid="delete-icon"
+            height="10px"
+            viewBox="0 0 329.26933 329"
+            width="10px"
+          >
+            <path
+              d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0"
+              fill="#B8222D"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="sc-AxirZ eQsxdA"
+        data-testid="menu_item"
+      >
+        <div
+          class="sc-AxiKw gtDHmr"
+        />
+        <div
+          class="sc-AxhCb kqBmUn"
+        >
+          <h2
+            class="sc-AxhUy jDDQbp"
+          >
+            Cheesecake
+          </h2>
+          <h3
+            class="sc-AxgMl dKATfS"
+          >
+            £ 4.00
+          </h3>
+        </div>
+        <div
+          class="sc-Axmtr hNYXJo"
+        >
+          desserts
+        </div>
+        <div
+          class="sc-AxheI bPxdoV"
+          data-testid="icon-container"
+        >
+          <svg
+            data-testid="delete-icon"
+            height="10px"
+            viewBox="0 0 329.26933 329"
+            width="10px"
+          >
+            <path
+              d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0"
+              fill="#B8222D"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="sc-fzoLsD kylPsZ"
+    >
+      <div
+        class="sc-fzpans kOMqZF"
+      >
+        <div
+          class="sc-fzplWN jtAsdO"
+        >
+          diner 1
+        </div>
+        <div
+          class="sc-fznyAO jQVrwO"
+        >
+          £ 18.00
+        </div>
+      </div>
+      <div
+        class="sc-fzpans kOMqZF"
+      >
+        <div
+          class="sc-fzplWN jtAsdO"
+        >
+          diner 2
+        </div>
+        <div
+          class="sc-fznyAO jQVrwO"
+        >
+          £ 17.00
+        </div>
+      </div>
+      <div
+        class="sc-fzpans kOMqZF"
+      >
+        <div
+          class="sc-fznKkj gRNvBB"
+        >
+          Order Total
+        </div>
+        <div
+          class="sc-fznZeY fUPrrj"
+        >
+          £ 35.00
+        </div>
+      </div>
+    </div>
+    <div
+      class="sc-fzqNJr cANzjX"
+    >
+      Place Order
+    </div>
+  </div>
+</div>
+`;

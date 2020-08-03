@@ -1,28 +1,25 @@
 import { ACTION_TYPES } from "../constants";
 import { ActionTypes, Diners } from "../types";
+import { MenuItemType } from "../components/Menu/components/MenuCategory";
 
 export const addItemToOrder = (
-  menuItemId: number,
-  menuItemName: string,
-  menuItemPrice: number,
+  menuItem: MenuItemType,
   menuCategory: string,
 ): ActionTypes => {
   return {
     type: ACTION_TYPES.ADD_DISH,
     payload: {
-      menuItemId,
-      menuItemName,
-      menuItemPrice,
+      menuItem,
       menuCategory,
     },
   };
 };
 
-export const removeItemFromOrder = (menuItemId: number): ActionTypes => {
+export const removeItemFromOrder = (id: number): ActionTypes => {
   return {
     type: ACTION_TYPES.REMOVE_DISH,
     payload: {
-      menuItemId,
+      id,
     },
   };
 };

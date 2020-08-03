@@ -1,7 +1,5 @@
 import { UI_ERRORS } from "../constants";
-import { Order, OrderedItemType, Store } from "../types";
-import { isObjectLiteralExpression } from "typescript";
-import OrderedItem from "../components/Order/components/OrderedItem";
+import { OrderedItemType, Store } from "../types";
 
 export const isDuplicateItem = (menuItemId: number, store: Store): boolean => {
   let isDuplicate = false;
@@ -9,7 +7,7 @@ export const isDuplicateItem = (menuItemId: number, store: Store): boolean => {
   const activeDiner = store.activeDiner;
 
   store.order[activeDiner].orderedItems.some((orderedItem: OrderedItemType) => {
-    if (orderedItem.menuItemId === menuItemId) {
+    if (orderedItem.id === menuItemId) {
       isDuplicate = true;
       return true;
     }
@@ -44,10 +42,7 @@ export const checkForErrors = (store: Store): string => {
   return errorMessage;
 };
 
-export const isCheeseCakePresent = (
-  menuItemName: string,
-  store: Store,
-): boolean => {
+const isCheeseCakePresent = (menuItemName: string, store: Store): boolean => {
   let cheeseCakeFound = false;
 
   if (menuItemName === "Cheesecake") {
@@ -55,8 +50,7 @@ export const isCheeseCakePresent = (
       const order = store.order[diner];
 
       cheeseCakeFound = order.orderedItems.some(
-        (OrderedItem: OrderedItemType) =>
-          OrderedItem.menuItemName === "Cheesecake",
+        (OrderedItem: OrderedItemType) => OrderedItem.name === "Cheesecake",
       );
 
       if (cheeseCakeFound) {
@@ -68,12 +62,12 @@ export const isCheeseCakePresent = (
   return cheeseCakeFound;
 };
 
-export const waiterCriteriaCheck = (menuItemName: string, store: Store) => {
+const waiterCriteriaCheck = (menuItemName: string, store: Store) => {
   let isWaiterUnhappy = false;
   if (menuItemName === "Prawn cocktail") {
     isWaiterUnhappy = store.order[store.activeDiner].orderedItems.some(
       (orderedItem: OrderedItemType) => {
-        return orderedItem.menuItemName === "Salmon fillet";
+        return orderedItem.name === "Salmon fillet";
       },
     );
 
@@ -84,7 +78,7 @@ export const waiterCriteriaCheck = (menuItemName: string, store: Store) => {
   if (menuItemName === "Salmon fillet") {
     isWaiterUnhappy = store.order[store.activeDiner].orderedItems.some(
       (orderedItem: OrderedItemType) => {
-        return orderedItem.menuItemName === "Prawn cocktail";
+        return orderedItem.name === "Prawn cocktail";
       },
     );
     if (isWaiterUnhappy) {
@@ -98,7 +92,10 @@ export const canItemBeAdded = (
   menuItemId: number,
   menuItemName: string,
   store: Store,
-) => {
+): {
+  canBeAdded: boolean;
+  error?: string;
+} => {
   if (isDuplicateItem(menuItemId, store)) {
     return {
       canBeAdded: false,

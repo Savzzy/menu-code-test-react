@@ -1,5 +1,5 @@
-import { Store, PayloadTypes, ItemToAdd } from "../types";
-import { canItemBeAdded, isCheeseCakePresent } from "../util";
+import { ItemToAdd, PayloadTypes, Store } from "../types";
+import { canItemBeAdded } from "../util/ruleSets";
 
 const addItemToOrder = (store: Store, payload: PayloadTypes) => {
   const activeDiner = store.activeDiner;
@@ -14,16 +14,11 @@ const addItemToOrder = (store: Store, payload: PayloadTypes) => {
       };
     }
 
-    const {
-      menuItemId,
-      menuItemName,
-      menuItemPrice,
-      menuCategory,
-    } = payload as ItemToAdd;
+    const { menuItem, menuCategory } = payload as ItemToAdd;
 
     const { canBeAdded, error } = canItemBeAdded(
-      menuItemId,
-      menuItemName,
+      menuItem.id,
+      menuItem.name,
       store,
     );
 
@@ -33,10 +28,10 @@ const addItemToOrder = (store: Store, payload: PayloadTypes) => {
     }
 
     store.order[activeDiner].orderedItems.push({
-      menuItemId,
-      menuItemName,
-      menuItemPrice,
-      menuCategory,
+      id: menuItem.id,
+      name: menuItem.name,
+      price: menuItem.price,
+      category: menuCategory,
     });
 
     if (!store.order[activeDiner].mainsAdded) {

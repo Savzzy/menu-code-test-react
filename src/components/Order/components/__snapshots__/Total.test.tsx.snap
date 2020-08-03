@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Total rendered correctly 1`] = `
+<div
+  class="sc-AxjAm eWtYSS"
+>
+  <div
+    class="sc-AxirZ kSgcWt"
+  >
+    <div
+      class="sc-AxiKw goNfIz"
+    >
+      diner 1
+    </div>
+    <div
+      class="sc-AxhCb daIOJP"
+    >
+      £ 18.00
+    </div>
+  </div>
+  <div
+    class="sc-AxirZ kSgcWt"
+  >
+    <div
+      class="sc-AxiKw goNfIz"
+    >
+      diner 2
+    </div>
+    <div
+      class="sc-AxhCb daIOJP"
+    >
+      £ 17.00
+    </div>
+  </div>
+  <div
+    class="sc-AxirZ kSgcWt"
+  >
+    <div
+      class="sc-AxhUy hCTVPE"
+    >
+      Order Total
+    </div>
+    <div
+      class="sc-AxgMl cPaElk"
+    >
+      £ 35.00
+    </div>
+  </div>
+</div>
+`;

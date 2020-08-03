@@ -13,7 +13,7 @@ const ErrorContainer = styled.div`
   align-items: center;
   padding: 20px;
 
-  position: absolute;
+  position: fixed;
   bottom: 1%;
   right: 1%;
 `;

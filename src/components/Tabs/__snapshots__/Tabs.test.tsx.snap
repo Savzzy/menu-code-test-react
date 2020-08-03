@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs renders Tab component correctly 1`] = `
+<div
+  class="sc-AxjAm dWrqPI"
+>
+  <div
+    class="sc-AxirZ hZPaiT"
+    data-testid="mains"
+  >
+    mains
+  </div>
+  <div
+    class="sc-AxirZ jwJYtR"
+    data-testid="desserts"
+  >
+    desserts
+  </div>
+  <div
+    class="sc-AxirZ jwJYtR"
+    data-testid="starters"
+  >
+    starters
+  </div>
+</div>
+`;

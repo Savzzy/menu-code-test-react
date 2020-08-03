@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MenuItem renders correctly 1`] = `
+<div
+  class="sc-AxirZ eQsxdA"
+  data-testid="menu_item"
+>
+  <div
+    class="sc-AxiKw gtDHmr"
+  />
+  <div
+    class="sc-AxhCb kqBmUn"
+  >
+    <h2
+      class="sc-AxhUy jDDQbp"
+    >
+      Soup
+    </h2>
+    <h3
+      class="sc-AxgMl dKATfS"
+    >
+      £ 3.00
+    </h3>
+  </div>
+</div>
+`;

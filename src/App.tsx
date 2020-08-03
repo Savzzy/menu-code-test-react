@@ -6,19 +6,8 @@ import Error from "./components/Error/Error";
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import Order from "./components/Order/Order";
+import globalTheme from "./globalTheme";
 import { store } from "./store";
-
-export const theme = {
-  colors: {
-    primary: "#B8222D",
-    primaryText: "#000",
-    secondaryText: "#9c9c9c",
-    lightText: "#FFF",
-    seperator: "#D8D8D8",
-    white: "#FFF",
-    itemCardBorder: "#F5F5F5",
-  },
-};
 
 export const breakpoints = {
   mobile: "560px",
@@ -38,7 +27,7 @@ const ContentContainer = styled.div`
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={globalTheme}>
       <AppContainer>
         <Header />
         <ContentContainer>

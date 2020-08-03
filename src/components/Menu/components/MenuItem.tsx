@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-
+import React, { useEffect, useState } from "react";
+import styled, { useTheme } from "styled-components";
 import unsplash from "../../../api/unsplash";
+import { MenuItemType } from "./MenuCategory";
+import { DefaultMenuItemIcon, RemoveIcon } from "../../Icons";
+import { UnsplashResponse } from "../../../types";
+import { useDispatch } from "react-redux";
+import { removeItemFromOrder } from "../../../actions";
 
 const MenuItemContainer = styled.div`
   border-width: 1px;
@@ -13,16 +17,25 @@ const MenuItemContainer = styled.div`
   border-radius: 5px;
   margin: 5px 0;
   cursor: pointer;
+  position: relative;
 `;
 
-const ImageContainer = styled.div`
-  background: url("https://img.taste.com.au/_YKHzE3u/taste/2016/11/pumpkin-and-chive-soup-75984-1.jpeg");
+interface ImageContainerProps {
+  imageUrl?: string;
+}
+
+const ImageContainer = styled.div<ImageContainerProps>`
+  background: url(${(props) => props.imageUrl});
   height: 90px;
   width: 100px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 5px 0 0 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ItemDetailsContainer = styled.div`
@@ -47,53 +60,108 @@ const ItemPrice = styled.h3`
   font-weight: 400;
 `;
 
+const IconContainer = styled.div`
+  position: absolute;
+  top: 3px;
+  right: 5px;
+`;
+
+const Category = styled.div`
+  border-radius: 100px;
+  padding: 0 10px;
+  height: 20px;
+  background-color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.lightText};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  font-size: 12px;
+`;
+
 interface MenuItemProps {
-  itemId: number;
-  itemName: string;
-  itemPrice: number;
+  menuItem: MenuItemType;
   priceUnit: string;
-  onClick: (
-    menuItemId: number,
-    menuItemName: string,
-    menuItemPrice: number,
-  ) => void;
+  onClick?: (menuItem: MenuItemType) => void;
   addedToOrder?: boolean;
+  itemCategory?: string;
+  ordered?: boolean;
+  onDeleteIconClick?: (menuItemID: number) => void;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
-  itemId,
-  itemName,
-  itemPrice,
+  menuItem,
   priceUnit,
   onClick,
+  itemCategory,
+  ordered,
+  onDeleteIconClick,
 }) => {
-  const [menuItemImage, setMenuItemImage] = useState(null);
+  const dispatch = useDispatch();
+  const theme = useTheme();
+  const [imageUrl, setImageUrl] = useState<string>("unInitialised");
 
   useEffect(() => {
     async function fetchMenuItem() {
       try {
-        const response = await unsplash.get("search/photos", {
-          params: { query: "cats" },
+        const response = await unsplash.get<UnsplashResponse>("search/photos", {
+          params: {
+            query: menuItem.name,
+            orientation: "squarish",
+            per_page: 1,
+          },
         });
+
+        const imageUrl = response.data.results[0].urls.thumb;
+
+        setImageUrl(imageUrl);
       } catch (error) {
-        console.log("unsplash API error");
+        setImageUrl(null);
       }
     }
 
     fetchMenuItem();
   });
 
+  const getMenuItemImage = () => {
+    return (
+      <ImageContainer imageUrl={imageUrl}>
+        {!imageUrl && (
+          <DefaultMenuItemIcon size={"70%"} color={theme.colors.primary} />
+        )}
+      </ImageContainer>
+    );
+  };
+
   return (
     <MenuItemContainer
       onClick={() => {
-        onClick(itemId, itemName, itemPrice);
+        onClick && onClick(menuItem);
       }}
+      data-testid="menu_item"
     >
-      <ImageContainer />
+      {getMenuItemImage()}
       <ItemDetailsContainer>
-        <ItemName>{itemName}</ItemName>
-        <ItemPrice>{`${priceUnit} ${itemPrice.toFixed(2)}`}</ItemPrice>
+        <ItemName>{menuItem.name}</ItemName>
+        <ItemPrice>{`${priceUnit} ${menuItem.price.toFixed(2)}`}</ItemPrice>
       </ItemDetailsContainer>
+
+      {ordered && (
+        <React.Fragment>
+          <Category>{itemCategory}</Category>
+          <IconContainer
+            onClick={() => {
+              onDeleteIconClick && onDeleteIconClick(menuItem.id);
+            }}
+            data-testid="icon-container"
+          >
+            <RemoveIcon color={theme.colors.primary} size={10} />
+          </IconContainer>
+        </React.Fragment>
+      )}
     </MenuItemContainer>
   );
 };

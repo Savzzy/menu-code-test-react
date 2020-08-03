@@ -60,6 +60,7 @@ const Tabs: React.FC<TabsProps> = ({
             onClick={() => {
               onTabClick(tabOption);
             }}
+            data-testid={tabOption}
           >
             {tabOption}
           </Tab>

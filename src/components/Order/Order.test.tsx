@@ -1,32 +1,24 @@
 import React from "react";
 import Order from "./Order";
-import { useSelector } from "react-redux";
 
 import mockedAppRoot from "../../__test-utils__/mockedAppRoot";
-import { mockStore } from "../../util/__meta__/ruleSets.fixtures";
-import { mockStoreWithWrongOrder } from "./__meta__/Order.fixtures";
-import { MenuItemType } from "../Menu/components/MenuCategory";
-import { fireEvent } from "@testing-library/react";
 
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useSelector: jest.fn(),
-}));
+import { mockStore, zeroOrderStore } from "./__meta__/Order.fixtures";
+import { MenuItemType } from "../Menu/components/MenuCategory";
 
 describe("Order", () => {
-  beforeEach(() => {
-    (useSelector as jest.Mock).mockImplementation((getStoreValues) => {
-      return getStoreValues(mockStore);
-    });
-  });
   it("renders correctly", () => {
-    const { container } = mockedAppRoot(<Order />);
+    const { container } = mockedAppRoot(<Order />, {
+      mockStore,
+    });
 
     expect(container.firstChild).toMatchSnapshot();
   });
 
   it("renders all the ordered menu items for the active diner", () => {
-    const { queryByText } = mockedAppRoot(<Order />);
+    const { queryByText } = mockedAppRoot(<Order />, {
+      mockStore,
+    });
 
     mockStore.order[mockStore.activeDiner].orderedItems.forEach(
       (menuItem: MenuItemType) => {
@@ -37,22 +29,22 @@ describe("Order", () => {
       },
     );
   });
-});
 
-describe("Negative scenario: Order", () => {
-  beforeEach(() => {
-    (useSelector as jest.Mock).mockImplementation((getStoreValues) => {
-      return getStoreValues(mockStoreWithWrongOrder);
+  describe("Complete order button", () => {
+    it("renders when there is at least one ordered item", () => {
+      const { getByText } = mockedAppRoot(<Order />, {
+        mockStore,
+      });
+
+      expect(getByText("Place Order")).toBeInTheDocument();
     });
-  });
 
-  it("renders error when cheesecake is ordered twice", () => {
-    const { getByText, getByTestId } = mockedAppRoot(<Order />);
-    fireEvent.click(getByTestId("place-order"));
-    expect(
-      getByText("Sorry, You cannot add Prawn cocktail with Salmon fillet"),
-    ).toBeInTheDocument();
-    // expect(getByText("Salmon fillet")).toBeInTheDocument();
-    // expect(getByText("Prawn cocktail")).not.toBeInTheDocument();
+    it("does not render when there isn't at least one ordered item", () => {
+      const { queryByText } = mockedAppRoot(<Order />, {
+        mockStore: zeroOrderStore,
+      });
+
+      expect(queryByText("Place Order")).not.toBeInTheDocument();
+    });
   });
 });

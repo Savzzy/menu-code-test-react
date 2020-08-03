@@ -1,3 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Error component renders correctly 1`] = `null`;
+exports[`Error component renders correctly 1`] = `
+<div
+  class="sc-AxjAm eQJdLU"
+>
+  <div
+    class="sc-AxirZ gZHoxL"
+  >
+    You cannot order the same item more than once.
+  </div>
+</div>
+`;

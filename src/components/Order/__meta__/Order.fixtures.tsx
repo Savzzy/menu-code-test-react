@@ -16,7 +16,7 @@ export const soup = {
   category: "starters",
 };
 
-export const prawnCoctail = {
+export const prawnCocktail = {
   id: 4,
   name: "Prawn cocktail",
   price: 6,
@@ -87,29 +87,27 @@ export const mockWrongOrder: Order = {
         category: salmonFillet.category,
       },
       {
-        ...prawnCoctail,
-        category: prawnCoctail.category,
+        ...prawnCocktail,
+        category: prawnCocktail.category,
       },
     ],
   },
 };
 
-const zeroOrderStore: Order = {
-  "diner 1": {
-    mainsAdded: true,
-    twoItemsAdded: true,
-    orderedItems: [],
-  },
-  "diner 2": {
-    mainsAdded: true,
-    twoItemsAdded: true,
-    orderedItems: [],
-  },
-};
-
-export const mockStoreForNoOrders: Store = {
-  order: zeroOrderStore,
+export const zeroOrderStore: Store = {
   activeDiner: Diners.diner1,
+  order: {
+    "diner 1": {
+      mainsAdded: true,
+      twoItemsAdded: true,
+      orderedItems: [],
+    },
+    "diner 2": {
+      mainsAdded: true,
+      twoItemsAdded: true,
+      orderedItems: [],
+    },
+  },
 };
 
 export const mockStore: Store = {

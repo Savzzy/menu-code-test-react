@@ -116,9 +116,7 @@ const Order: React.FC = () => {
         </OrderedItems>
         <Total />
         {itemOrdered && (
-          <OrderButton onClick={placeOrder} data-testid="place-order">
-            Place Order
-          </OrderButton>
+          <OrderButton onClick={placeOrder}>Place Order</OrderButton>
         )}
       </OrderDetailsContainer>
     </OrderContainer>

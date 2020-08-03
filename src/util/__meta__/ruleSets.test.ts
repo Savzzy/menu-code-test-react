@@ -1,14 +1,12 @@
-import { isDuplicateItem, checkForErrors, canItemBeAdded } from "../ruleSets";
+import { checkForErrors, canItemBeAdded } from "../ruleSets";
 import {
-  mockNewMenuItemId,
   mockStore,
   cheescake,
-  prawnCoctail,
+  prawnCocktail,
   salmonFillet,
 } from "./ruleSets.fixtures";
 import { Diners, Store } from "../../types";
 import { UI_ERRORS } from "../../constants";
-import { store } from "../../store";
 
 function cloneObject<T>(toBeCloned: T): T {
   return JSON.parse(JSON.stringify(toBeCloned));
@@ -82,8 +80,8 @@ describe("Tests for rule sets", () => {
 
     it("should return WAITER_RESTRICTION error message, when a diner tries to add prawn cocktail and salmon fillet in the same order", () => {
       const result = canItemBeAdded(
-        prawnCoctail.id,
-        prawnCoctail.name,
+        prawnCocktail.id,
+        prawnCocktail.name,
         mockStore,
       );
 

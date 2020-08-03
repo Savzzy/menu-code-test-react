@@ -14,7 +14,7 @@ export const soup = {
   category: "starters",
 };
 
-export const prawnCoctail = {
+export const prawnCocktail = {
   id: 4,
   name: "Prawn cocktail",
   price: 6,

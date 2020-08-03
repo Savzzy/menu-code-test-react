@@ -5,7 +5,7 @@ import { createStore } from "redux";
 import { ThemeProvider } from "styled-components";
 import globalTheme from "../globalTheme";
 import rootReducer from "../reducers";
-import { intialStore } from "../store";
+import { initialStore } from "../store";
 import { Store } from "../types";
 
 interface MockedAppRootOptions {
@@ -18,7 +18,7 @@ const mockedAppRoot = (
 ): RenderResult => {
   const AppContainer: React.FC = ({ children }) => (
     <Provider
-      store={createStore(rootReducer, options?.mockStore || intialStore)}
+      store={createStore(rootReducer, options?.mockStore || initialStore)}
     >
       <ThemeProvider theme={globalTheme}>{children}</ThemeProvider>
     </Provider>

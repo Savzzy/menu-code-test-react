@@ -6,6 +6,7 @@ import { fireEvent } from "@testing-library/react";
 describe("Tabs", () => {
   it("renders Tab component correctly", () => {
     const myMock = jest.fn();
+
     const { container } = mockedAppRoot(
       <Tabs
         tabOptions={["mains", "desserts", "starters"]}
@@ -19,6 +20,7 @@ describe("Tabs", () => {
 
   it("functions properly when selected Tab Clicked", () => {
     const myMock = jest.fn();
+
     const { getByTestId } = mockedAppRoot(
       <Tabs
         tabOptions={["mains", "desserts", "starters"]}
@@ -26,7 +28,9 @@ describe("Tabs", () => {
         onTabClick={myMock}
       />,
     );
+
     fireEvent.click(getByTestId("mains"));
+
     expect(myMock.mock.calls.length).toBe(1);
     expect(myMock.mock.calls[0][0]).toBe("mains");
   });

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   changeActiveDiner,
   updateErrorState,
   removeItemFromOrder,
+  resetStore,
 } from "../../actions";
 import { Diners, OrderedItemType, Store } from "../../types";
 import { checkForErrors } from "../../util/ruleSets";
@@ -37,10 +38,27 @@ const OrderButton = styled.div`
   cursor: pointer;
 `;
 
+const OrderCompleted = styled.div`
+  width: fit-content;
+  border-radius: 5px;
+  background-color: ${(props) => props.theme.colors.successNotification};
+  color: ${(props) => props.theme.colors.lightText};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  position: fixed;
+  bottom: 1%;
+  right: 1%;
+`;
+
 const OrderDetailsContainer = styled.div``;
 
 const Order: React.FC = () => {
   const dispatch = useDispatch();
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
   const onDeleteIconClick = (menuItemID: number) => {
     dispatch(removeItemFromOrder(menuItemID));
@@ -82,7 +100,16 @@ const Order: React.FC = () => {
 
     if (error) {
       dispatch(updateErrorState(error));
+      return;
     }
+
+    setOrderPlaced(true);
+
+    setTimeout(() => {
+      setOrderPlaced(false);
+    }, 3000);
+
+    dispatch(resetStore());
   };
 
   return (
@@ -117,6 +144,9 @@ const Order: React.FC = () => {
         <Total />
         {itemOrdered && (
           <OrderButton onClick={placeOrder}>Place Order</OrderButton>
+        )}
+        {orderPlaced && (
+          <OrderCompleted>Order placed successfully</OrderCompleted>
         )}
       </OrderDetailsContainer>
     </OrderContainer>

@@ -7,5 +7,6 @@ export default {
     seperator: "#D8D8D8",
     white: "#FFF",
     itemCardBorder: "#F5F5F5",
+    successNotification: "#3d8e18",
   },
 };

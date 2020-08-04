@@ -57,7 +57,8 @@ export type PayloadTypes =
   | ItemToAdd
   | ItemToRemove
   | ChangeActiveDiner
-  | UpdateErrorState;
+  | UpdateErrorState
+  | Store;
 
 //#endregion
 
@@ -83,10 +84,15 @@ export interface UpdateErrorStateActionType extends ActionType {
   payload: UpdateErrorState;
 }
 
+export interface ClearStoreActionType extends ActionType {
+  payload: Store;
+}
+
 export type ActionTypes =
   | AddDishToOrderActionType
   | RemoveDishFromOrderActionType
   | ChangeActiveDinerActionType
-  | UpdateErrorStateActionType;
+  | UpdateErrorStateActionType
+  | ClearStoreActionType;
 
 //#endregion

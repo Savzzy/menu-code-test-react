@@ -1,10 +1,10 @@
 import React from "react";
-import Order from "./Order";
+import Order from "../Order";
 
-import mockedAppRoot from "../../__test-utils__/mockedAppRoot";
+import mockedAppRoot from "../../../__test-utils__/mockedAppRoot";
 
-import { mockStore, zeroOrderStore } from "./__meta__/Order.fixtures";
-import { MenuItemType } from "../Menu/components/MenuCategory";
+import { mockStore, zeroOrderStore } from "./Order.fixtures";
+import { MenuItemType } from "../../Menu/components/MenuCategory";
 
 describe("Order", () => {
   it("renders correctly", () => {

@@ -1,12 +1,47 @@
-OpenTable front-end coding challenge
-====================================
+A responsive restaurant order booking portal implemented using React.js and Typescript.
+
+## Getting started
+
+### Install dependencies
+
+`yarn install`
+
+### Start application
+
+Run `yarn start`, navigate to http://localhost:8080/
+
+### Run tests
+
+`yarn test`
+
+Tests output coverage by default.
+
+## Extras
+
+### Menu item images
+
+Menu item images are pulled from unsplash API, falling back to an SVG when the API response is unsuccessful or if no images are found.
+
+### Themeing
+
+The application supports themes by default, implemented using styled components and theme provider.
+
+### Responsive
+
+The application is responsive, and the tabs scroll to the relevant menu position when clicked.
+
+###
+
+### Rules
 
 Thank you for accepting our coding challenge. Please take as much time as required to give us a good indication of your coding strengths, as your application will provide many topics of conversation in the next interview stage.
 
+# OpenTable front-end coding challenge
 
 ## The task
 
 We would like you to build a web application.
+
 - The application will allow one user to select dishes on behalf of two diners.
 - The application will present a menu that will be provided and may later require adjustment by a restaurant.
 - The application will enforce some restrictions provided by the restaurant. (see [#rules](#rules))
@@ -17,10 +52,6 @@ The menu data is provided in `menu-data.json` and the application is in `src/App
 
 Please write as clean and maintainable code as possible, and make sure that it's covered by test cases.
 
-
-## Rules
-
-
 _To recap, you will build an interface that allows a user to select dishes for a fixed party of **two diners**._\
 This restaurant unfortunately has a number of rules about the meals that can be ordered.
 
@@ -29,15 +60,11 @@ This restaurant unfortunately has a number of rules about the meals that can be 
 - There is only one piece of cheesecake left.
 - Pierre the snobby waiter will not let you have prawn cocktail and salmon fillet in the same meal.
 
-
 ## Acceptance criteria
 
 - The total bill amount is displayed when at least one dish has been selected.
 - An error message is displayed when I try to select an invalid menu combination.
 
-
 ## Submission
 
 Please submit your program either by sending a zip file or by providing a link to a repository, dropbox, etc to your point of contact at OpenTable.
-
-

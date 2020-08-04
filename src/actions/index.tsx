@@ -1,5 +1,5 @@
 import { ACTION_TYPES } from "../constants";
-import { ActionTypes, Diners } from "../types";
+import { ActionTypes, Diners, Store } from "../types";
 import { MenuItemType } from "../components/Menu/components/MenuCategory";
 
 export const addItemToOrder = (
@@ -39,5 +39,12 @@ export const updateErrorState = (error: string): ActionTypes => {
     payload: {
       error,
     },
+  };
+};
+
+export const resetStore = (store: Store): ActionTypes => {
+  return {
+    type: ACTION_TYPES.RESET_STORE,
+    payload: store,
   };
 };

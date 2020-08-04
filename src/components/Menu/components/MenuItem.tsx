@@ -25,7 +25,10 @@ interface ImageContainerProps {
 }
 
 const ImageContainer = styled.div<ImageContainerProps>`
-  background: url(${(props) => props.imageUrl});
+  background: ${(props) =>
+    props.imageUrl === "unInitialized" || !props.imageUrl
+      ? "none"
+      : `url(${props.imageUrl})`};
   height: 90px;
   width: 100px;
   background-size: cover;
@@ -102,7 +105,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
 }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
-  const [imageUrl, setImageUrl] = useState<string>("unInitialised");
+  const [imageUrl, setImageUrl] = useState<string>("unInitialized");
 
   useEffect(() => {
     async function fetchMenuItem() {
@@ -116,7 +119,6 @@ const MenuItem: React.FC<MenuItemProps> = ({
         });
 
         const imageUrl = response.data.results[0].urls.thumb;
-
         setImageUrl(imageUrl);
       } catch (error) {
         setImageUrl(null);

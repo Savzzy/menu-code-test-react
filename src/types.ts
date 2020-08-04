@@ -84,7 +84,7 @@ export interface UpdateErrorStateActionType extends ActionType {
   payload: UpdateErrorState;
 }
 
-export interface ClearStoreActionType extends ActionType {
+export interface ResetStoreActionType extends ActionType {
   payload: Store;
 }
 
@@ -93,6 +93,6 @@ export type ActionTypes =
   | RemoveDishFromOrderActionType
   | ChangeActiveDinerActionType
   | UpdateErrorStateActionType
-  | ClearStoreActionType;
+  | ResetStoreActionType;
 
 //#endregion

@@ -1,4 +1,4 @@
-import { Diners, Order, Store } from "../../types";
+import { Diners, Store } from "../../types";
 
 export const salmonFillet = {
   id: 7,
@@ -37,34 +37,37 @@ export const Pâté = {
 
 export const mockNewMenuItemId = 20;
 
-export const mockOrder: Order = {
-  "diner 1": {
-    mainsAdded: true,
-    twoItemsAdded: true,
-    orderedItems: [
-      {
-        ...salmonFillet,
-      },
-      {
-        ...cheescake,
-      },
-    ],
-  },
-  "diner 2": {
-    mainsAdded: true,
-    twoItemsAdded: true,
-    orderedItems: [
-      {
-        ...salmonFillet,
-      },
-      {
-        ...soup,
-      },
-    ],
-  },
+export const mockStoreWithNoOrders: Store = {
+  order: {},
+  activeDiner: Diners.diner1,
 };
 
 export const mockStore: Store = {
-  order: mockOrder,
+  order: {
+    "diner 1": {
+      mainsAdded: true,
+      twoItemsAdded: true,
+      orderedItems: [
+        {
+          ...salmonFillet,
+        },
+        {
+          ...cheescake,
+        },
+      ],
+    },
+    "diner 2": {
+      mainsAdded: true,
+      twoItemsAdded: true,
+      orderedItems: [
+        {
+          ...salmonFillet,
+        },
+        {
+          ...soup,
+        },
+      ],
+    },
+  },
   activeDiner: Diners.diner1,
 };

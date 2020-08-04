@@ -13,6 +13,7 @@ import { MenuItemType } from "../Menu/components/MenuCategory";
 import MenuItem from "../Menu/components/MenuItem";
 import Tabs, { TabPositions } from "../Tabs";
 import Total from "./components/Total";
+import { initialStore } from "../../store";
 
 const OrderContainer = styled.div`
   padding: 0 15px;
@@ -109,7 +110,7 @@ const Order: React.FC = () => {
       setOrderPlaced(false);
     }, 3000);
 
-    dispatch(resetStore());
+    dispatch(resetStore(initialStore));
   };
 
   return (

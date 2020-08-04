@@ -33,7 +33,6 @@ const Menu: React.FC = () => {
 
   const registerOffset = (menuCategory: string, offsetY: number) => {
     categoryOffsets.current[menuCategory] = offsetY;
-    console.log(categoryOffsets);
   };
 
   return (
